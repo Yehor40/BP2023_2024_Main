@@ -1,4 +1,4 @@
-package com.example.registrationlogindemo.dto;
+package com.example.bp2023_2024_Main.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

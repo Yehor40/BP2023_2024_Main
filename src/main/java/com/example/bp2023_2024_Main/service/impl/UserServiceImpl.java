@@ -1,11 +1,11 @@
-package com.example.registrationlogindemo.service.impl;
+package com.example.bp2023_2024_Main.service.impl;
 
-import com.example.registrationlogindemo.dto.UserDto;
-import com.example.registrationlogindemo.entity.Role;
-import com.example.registrationlogindemo.entity.User;
-import com.example.registrationlogindemo.repository.RoleRepository;
-import com.example.registrationlogindemo.repository.UserRepository;
-import com.example.registrationlogindemo.service.UserService;
+import com.example.bp2023_2024_Main.dto.UserDto;
+import com.example.bp2023_2024_Main.entity.Role;
+import com.example.bp2023_2024_Main.entity.User;
+import com.example.bp2023_2024_Main.repository.RoleRepository;
+import com.example.bp2023_2024_Main.repository.UserRepository;
+import com.example.bp2023_2024_Main.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

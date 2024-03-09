@@ -1,8 +1,8 @@
-package com.example.registrationlogindemo.controller;
+package com.example.bp2023_2024_Main.controller;
 
-import com.example.registrationlogindemo.dto.UserDto;
-import com.example.registrationlogindemo.entity.User;
-import com.example.registrationlogindemo.service.UserService;
+import com.example.bp2023_2024_Main.dto.UserDto;
+import com.example.bp2023_2024_Main.entity.User;
+import com.example.bp2023_2024_Main.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

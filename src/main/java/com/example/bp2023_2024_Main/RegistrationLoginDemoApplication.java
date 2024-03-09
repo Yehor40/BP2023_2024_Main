@@ -1,4 +1,4 @@
-package com.example.registrationlogindemo;
+package com.example.bp2023_2024_Main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

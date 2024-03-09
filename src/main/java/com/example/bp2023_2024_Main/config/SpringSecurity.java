@@ -1,4 +1,4 @@
-package com.example.registrationlogindemo.config;
+package com.example.bp2023_2024_Main.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

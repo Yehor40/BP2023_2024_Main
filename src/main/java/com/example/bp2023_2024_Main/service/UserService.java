@@ -1,7 +1,7 @@
-package com.example.registrationlogindemo.service;
+package com.example.bp2023_2024_Main.service;
 
-import com.example.registrationlogindemo.dto.UserDto;
-import com.example.registrationlogindemo.entity.User;
+import com.example.bp2023_2024_Main.dto.UserDto;
+import com.example.bp2023_2024_Main.entity.User;
 
 import java.util.List;
 
