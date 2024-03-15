@@ -3,6 +3,7 @@ package com.example.bp2023_2024_Main.controller;
 import com.example.bp2023_2024_Main.dto.UserDto;
 import com.example.bp2023_2024_Main.entity.User;
 import com.example.bp2023_2024_Main.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,12 @@ public class AuthController {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "redirect:login";
+    }
+
     // handler method to handle user registration request
     @GetMapping("register")
     public String showRegistrationForm(Model model){
@@ -57,10 +64,15 @@ public class AuthController {
         return "redirect:/register?success";
     }
 
-    @GetMapping("/users")
-    public String listRegisteredUsers(Model model){
-        List<UserDto> users = userService.findAllUsers();
-        model.addAttribute("users", users);
-        return "users";
-    }
+//    @GetMapping("/users")
+//    public String listRegisteredUsers(Model model){
+//        List<UserDto> users = userService.findAllUsers();
+//        model.addAttribute("users", users);
+//        return "users";
+//    }
+@GetMapping("/error")
+public String error(Model model) {
+    model.addAttribute("error", "Error Page");
+    return "error";
+}
 }

@@ -10,7 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +46,9 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
     }
+//    public Optional<UserDto> getUserById(Long id) {
+//        return userRepository.findById(id);
+//    }
 
     @Override
     public User findByEmail(String email) {
@@ -52,19 +57,45 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> findAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users.stream().map((user) -> convertEntityToDto(user))
-                .collect(Collectors.toList());
+        try {
+            List<User> users = userRepository.findAll();
+            return users.stream()
+                    .map(user -> convertEntityToDto(user))
+                    .collect(Collectors.toList());
+        } catch (IndexOutOfBoundsException e) {
+            // Handle the exception appropriately (e.g., log the error, return an empty list)
+            System.err.println("Error converting user: " + e.getMessage());
+            return Collections.emptyList(); // Or handle in another way
+        }
     }
 
-    private UserDto convertEntityToDto(User user){
+    @Override
+    public Optional<UserDto> getUserById(Long id) {
+        return Optional.empty();
+    }
+
+
+    private UserDto convertEntityToDto(User user) {
         UserDto userDto = new UserDto();
-        String[] name = user.getName().split(" ");
-        userDto.setFirstName(name[0]);
-        userDto.setLastName(name[1]);
+
+        String[] nameParts = user.getName().split(" ");
+        if (nameParts.length > 1) {
+            userDto.setFirstName(nameParts[0]);
+            userDto.setLastName(nameParts[1]);
+        } else if (nameParts.length == 1) {
+            // Handle single-word names (e.g., assign to both first and last name)
+            userDto.setFirstName(nameParts[0]);
+            userDto.setLastName("");
+        } else {
+            // Handle empty names (e.g., set to empty strings)
+            userDto.setFirstName("");
+            userDto.setLastName("");
+        }
+
         userDto.setEmail(user.getEmail());
         return userDto;
     }
+
 
     private Role checkRoleExist() {
         Role role = new Role();
