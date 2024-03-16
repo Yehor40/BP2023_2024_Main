@@ -3,16 +3,19 @@ package com.example.bp2023_2024_Main.controller;
 import com.example.bp2023_2024_Main.dto.UserDto;
 import com.example.bp2023_2024_Main.entity.User;
 import com.example.bp2023_2024_Main.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 @Controller
+
 public class UserController {
 
     private UserService userService;
@@ -22,26 +25,54 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String listRegisteredUsers(Model model){
+    public String listRegisteredUsers(Model model) {
         List<UserDto> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "users";
     }
-//    @GetMapping("/users/{id}")
-//    public String getUserById(@PathVariable Long id, Model model) {
-//        try {
-//            UserDto userDto = userService.getUserById(id)
-//                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-//            model.addAttribute("user", userDto);
-//            return "userMore";
-//        } catch (ResponseStatusException e) {
-//            throw e; // Re-throw to let Spring handle the exception
-//        } catch (Exception e) {
-//            // Log any unexpected exceptions
-//            // Replace with your preferred logging framework and configuration
-//            System.err.println("An unexpected error occurred: " + e.getMessage());
-//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error");
-//        }
-//    }
 
+    @GetMapping("/users/{id}")
+    public String getUserById(@PathVariable Long id, Model model) throws ChangeSetPersister.NotFoundException {
+        User user = userService.getUserById(id).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+        model.addAttribute("user", user);
+        return "userMore";
+    }
+
+    @GetMapping("/users/create")
+    public String createUserForm(Model model) {
+        model.addAttribute("newUser", new User());
+        return "userCreate";
+    }
+
+    @PostMapping("/create")
+    public String createUser( User user, @RequestParam List<String> roleNames) {
+        userService.createUser(user,roleNames);
+        return "redirect:/users";
+    }
+    @GetMapping("/users/{id}/delete")
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return "redirect:/users";
+    }
+    @GetMapping("/users/{id}/edit")
+    public String editUserForm(@PathVariable Long id, Model model) throws ChangeSetPersister.NotFoundException {
+        User user = userService.getUserById(id).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+        model.addAttribute("user", user);
+        return "userEdit";
+    }
+
+    @PostMapping("/users/{id}/edit")
+    public String editUser(@PathVariable Long id,
+                           @ModelAttribute("user") User updatedUser,
+                           RedirectAttributes redirectAttributes) {
+        // Validate and update the user
+
+        try {
+            userService.updateUser(id, updatedUser);
+        } catch (EntityNotFoundException e) {
+            // Handle the case where the user is not found
+        }
+
+        return "redirect:/users";
+    }
 }

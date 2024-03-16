@@ -23,7 +23,7 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @GetMapping("index")
+    @GetMapping("/")
     public String home(){
         return "index";
     }
@@ -75,4 +75,9 @@ public String error(Model model) {
     model.addAttribute("error", "Error Page");
     return "error";
 }
+    @GetMapping("/about")
+    public String about(Model model) {
+        model.addAttribute("about", "About Page");
+        return "about";
+    }
 }

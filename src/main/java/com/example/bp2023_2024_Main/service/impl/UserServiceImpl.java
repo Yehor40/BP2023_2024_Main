@@ -9,10 +9,7 @@ import com.example.bp2023_2024_Main.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,10 +67,42 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserDto> getUserById(Long id) {
-        return Optional.empty();
+    public Optional<User> getUserById(Long id) {
+       // Optional<User> user =
+        return userRepository.findById(id);
     }
 
+    @Override
+    public User createUser(User user, List<String> roleNames) {
+        List<Role> roles = new LinkedList<>();
+        for (String roleName : roleNames) {
+            Role role = roleRepository.findByName(roleName);
+            if (role == null) {
+                throw new IllegalArgumentException("Role not found: " + roleName);
+            }
+            roles.add(role);
+        }
+        user.setRoles(roles);
+        return userRepository.save(user);
+
+
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+            userRepository.deleteById(id);
+    }
+
+    @Override
+    public User updateUser(Long id, User updatedUser) {
+        User existingUser = new User();
+        existingUser = userRepository.findById(id).orElseThrow();
+        // Update the properties of the existing user
+        existingUser.setName(updatedUser.getName());
+        existingUser.setPassword(updatedUser.getPassword());
+        existingUser.setRoles(updatedUser.getRoles());
+        return userRepository.save(existingUser);
+    }
 
     private UserDto convertEntityToDto(User user) {
         UserDto userDto = new UserDto();
