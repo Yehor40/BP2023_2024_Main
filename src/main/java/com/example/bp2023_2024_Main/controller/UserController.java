@@ -5,11 +5,9 @@ import com.example.bp2023_2024_Main.entity.User;
 import com.example.bp2023_2024_Main.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -18,7 +16,7 @@ import java.util.List;
 
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -45,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String createUser( User user, @RequestParam List<String> roleNames) {
+    public String createUser( @ModelAttribute("newUser")User user, @RequestParam List<String> roleNames) {
         userService.createUser(user,roleNames);
         return "redirect:/users";
     }

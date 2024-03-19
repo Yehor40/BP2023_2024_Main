@@ -21,7 +21,7 @@ public class Project {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_project",
-            joinColumns = @JoinColumn(name = "order_id"),
+            joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 

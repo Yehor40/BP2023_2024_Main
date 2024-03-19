@@ -29,11 +29,13 @@
 
     <label >Password:</label>
     <input type="text" id="password" name="password" th:field="*{password}" required class="form-control">
-    <label >Role:</label>
+    <br>  <label >Role:</label>
 
-    <select id="roles" name="roleNames" multiple required>
-        <option th:each="role : ${roles}" th:value="${role.name}" th:text="${role.name}"></option>
-    </select><br>
+    <select th:field="*{roles}">
+        <option th:value="1" th:text="User"></option>
+        <option th:value="3" th:text="Admin"></option>
+    </select>
+    <br>
     <br>
     <button type="submit"  class="btn btn-success">Create User</button>
 </form>

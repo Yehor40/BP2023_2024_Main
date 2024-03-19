@@ -34,8 +34,9 @@
 
     <div class="mb-3">
       <label class="form-label">User's role:</label>
-      <select id="roles" name="roleNames" >
-        <option th:each="role : ${roles}" th:value="${role.name}" th:text="${role.name}"></option>
+      <select th:field="*{roles}">
+        <option th:value="1" th:text="User"></option>
+        <option th:value="3" th:text="Admin"></option>
       </select><br>
     </div>
 

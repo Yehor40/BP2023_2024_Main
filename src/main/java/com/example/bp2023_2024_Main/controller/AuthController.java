@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
+
 
 @Controller
 public class AuthController {
@@ -21,11 +21,6 @@ public class AuthController {
 
     public AuthController(UserService userService) {
         this.userService = userService;
-    }
-
-    @GetMapping("/")
-    public String home(){
-        return "index";
     }
 
     @GetMapping("/login")
@@ -38,7 +33,10 @@ public class AuthController {
         request.getSession().invalidate();
         return "redirect:login";
     }
-
+    @GetMapping("/")
+    public String home(){
+        return "indexAdmin";
+    }
     // handler method to handle user registration request
     @GetMapping("register")
     public String showRegistrationForm(Model model){
@@ -70,10 +68,9 @@ public class AuthController {
 //        model.addAttribute("users", users);
 //        return "users";
 //    }
-@GetMapping("/error")
-public String error(Model model) {
-    model.addAttribute("error", "Error Page");
-    return "error";
+    @GetMapping("/user/indexUser")
+    public String userDashboard() {
+    return "indexUser";
 }
     @GetMapping("/about")
     public String about(Model model) {

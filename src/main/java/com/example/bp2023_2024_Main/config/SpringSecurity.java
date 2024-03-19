@@ -3,6 +3,7 @@ package com.example.bp2023_2024_Main.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,11 +33,13 @@ public class SpringSecurity {
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
                                 .requestMatchers("/users/{id}").hasRole("ADMIN")
+                                //.requestMatchers("/users/{id}").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/create").hasRole("ADMIN")
                                 .requestMatchers("/users/create").hasRole("ADMIN")
                                 .requestMatchers("/users/{id}/edit").hasRole("ADMIN")
                                 .requestMatchers("/users/{id}/delete").hasRole("ADMIN")
                                 .requestMatchers("/about").permitAll()
-
+                                .requestMatchers("/indexUser").hasRole("USER")
 
 
                 ).formLogin(
@@ -44,7 +47,6 @@ public class SpringSecurity {
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/")
-                                .failureForwardUrl("/error")
                                 .permitAll()
                 ).logout(
                         logout -> logout

@@ -26,7 +26,6 @@ public class UserServiceImpl implements UserService {
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
     @Override
     public void saveUser(UserDto userDto) {
         User user = new User();
@@ -43,10 +42,6 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
     }
-//    public Optional<UserDto> getUserById(Long id) {
-//        return userRepository.findById(id);
-//    }
-
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
@@ -65,13 +60,10 @@ public class UserServiceImpl implements UserService {
             return Collections.emptyList(); // Or handle in another way
         }
     }
-
     @Override
     public Optional<User> getUserById(Long id) {
-       // Optional<User> user =
         return userRepository.findById(id);
     }
-
     @Override
     public User createUser(User user, List<String> roleNames) {
         List<Role> roles = new LinkedList<>();
@@ -84,15 +76,11 @@ public class UserServiceImpl implements UserService {
         }
         user.setRoles(roles);
         return userRepository.save(user);
-
-
     }
-
     @Override
     public void deleteUser(Long id) {
             userRepository.deleteById(id);
     }
-
     @Override
     public User updateUser(Long id, User updatedUser) {
         User existingUser = new User();
@@ -103,7 +91,6 @@ public class UserServiceImpl implements UserService {
         existingUser.setRoles(updatedUser.getRoles());
         return userRepository.save(existingUser);
     }
-
     private UserDto convertEntityToDto(User user) {
         UserDto userDto = new UserDto();
 
