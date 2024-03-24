@@ -68,7 +68,7 @@ public class AuthController {
 //        model.addAttribute("users", users);
 //        return "users";
 //    }
-    @GetMapping("/user/indexUser")
+    @GetMapping("/indexUser")
     public String userDashboard() {
     return "indexUser";
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -39,4 +40,9 @@ public class User
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(name = "evidence_user",
+            joinColumns = {@JoinColumn(name = "user_id",referencedColumnName ="id" )},
+            inverseJoinColumns = {@JoinColumn(name = "evidence_id",referencedColumnName ="id")})
+    private Set<Evidence> evidences;
 }

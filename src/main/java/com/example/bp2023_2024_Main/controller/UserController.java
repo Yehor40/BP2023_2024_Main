@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-
 public class UserController {
 
     private final UserService userService;
@@ -28,20 +27,17 @@ public class UserController {
         model.addAttribute("users", users);
         return "users";
     }
-
     @GetMapping("/users/{id}")
     public String getUserById(@PathVariable Long id, Model model) throws ChangeSetPersister.NotFoundException {
         User user = userService.getUserById(id).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
         model.addAttribute("user", user);
         return "userMore";
     }
-
     @GetMapping("/users/create")
     public String createUserForm(Model model) {
         model.addAttribute("newUser", new User());
         return "userCreate";
     }
-
     @PostMapping("/create")
     public String createUser( @ModelAttribute("newUser")User user, @RequestParam List<String> roleNames) {
         userService.createUser(user,roleNames);
@@ -58,19 +54,16 @@ public class UserController {
         model.addAttribute("user", user);
         return "userEdit";
     }
-
     @PostMapping("/users/{id}/edit")
     public String editUser(@PathVariable Long id,
                            @ModelAttribute("user") User updatedUser,
                            RedirectAttributes redirectAttributes) {
         // Validate and update the user
-
         try {
             userService.updateUser(id, updatedUser);
         } catch (EntityNotFoundException e) {
-            // Handle the case where the user is not found
-        }
 
+        }
         return "redirect:/users";
     }
 }
