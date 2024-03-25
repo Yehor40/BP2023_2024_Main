@@ -20,7 +20,7 @@
 <div class="container ">
 
 <h2>Create User</h2>
-<form th:action="@{/users/create}" th:object="${newUser}" method="post">
+<form th:action="@{/create}" th:object="${newUser}" method="post">
     <label >Name:</label>
     <input type="text" id="name" name="username" th:field="*{name}" required class="form-control">
     <label>Email:</label>

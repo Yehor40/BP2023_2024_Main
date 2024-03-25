@@ -40,8 +40,18 @@ public class SpringSecurity {
                                 .requestMatchers("/users/{id}/delete").permitAll()
                                 .requestMatchers("/about").permitAll()
                                 .requestMatchers("/indexUser").permitAll()
-                                .requestMatchers("/evidences").permitAll()
-                                .requestMatchers("/evidences/{id}").permitAll()
+                     //           .requestMatchers("/evidences").permitAll()
+                       //         .requestMatchers("/evidences/{id}").permitAll()
+                         //       .requestMatchers("/evidences/create").permitAll()
+                                .requestMatchers("/createEvidence").permitAll()
+                                .requestMatchers("/evidenceEdit").permitAll()
+                                .requestMatchers("/redirect:users").permitAll()
+                                .requestMatchers("/redirect:evidences").permitAll()
+                                .requestMatchers("/evidences/**").permitAll()
+                                .requestMatchers("/evidence/download/all").permitAll()
+                                .requestMatchers("/evidence/download/{id}").permitAll()
+
+
 
                 ).formLogin(
                         form -> form
