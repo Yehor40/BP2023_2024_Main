@@ -55,7 +55,7 @@ public class EvidenceController {
         model.addAttribute("evidence",evidence);
         return"evidenceEdit";
     }
-    @PostMapping("evidences/{id}/edit")
+    @PostMapping("evidences/{id}/edit›")
     public String editEvidence(@PathVariable Long id,
                            @ModelAttribute("evidence") Evidence updatedEvidence,
                            RedirectAttributes redirectAttributes) {
