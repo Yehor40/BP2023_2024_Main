@@ -40,9 +40,6 @@ public class User
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "evidence_user",
-            joinColumns = {@JoinColumn(name = "user_id",referencedColumnName ="id" )},
-            inverseJoinColumns = {@JoinColumn(name = "evidence_id",referencedColumnName ="id")})
+    @OneToMany(mappedBy = "user")
     private Set<Evidence> evidences;
 }

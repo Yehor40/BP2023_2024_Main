@@ -30,8 +30,10 @@ public class Evidence {
     private double total;
     private String state;
     private String month;
-    @ManyToMany(mappedBy = "evidences")
-    private Set<User> users;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }
 

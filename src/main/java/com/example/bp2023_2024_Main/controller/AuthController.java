@@ -70,7 +70,7 @@ public class AuthController {
 //    }
     @GetMapping("/indexUser")
     public String userDashboard() {
-    return "indexUser";
+        return "indexUser";
 }
     @GetMapping("/about")
     public String about(Model model) {

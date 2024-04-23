@@ -33,23 +33,25 @@ public class SpringSecurity {
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
                                 .requestMatchers("/users/{id}").permitAll()
-                                //.requestMatchers("/users/{id}").permitAll()
+                                .requestMatchers("/users/{id}").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/create").permitAll()
                                 .requestMatchers("/users/create").permitAll()
                                 .requestMatchers("/users/{id}/edit").permitAll()
                                 .requestMatchers("/users/{id}/delete").permitAll()
                                 .requestMatchers("/about").permitAll()
                                 .requestMatchers("/indexUser").permitAll()
-                     //           .requestMatchers("/evidences").permitAll()
-                       //         .requestMatchers("/evidences/{id}").permitAll()
-                         //       .requestMatchers("/evidences/create").permitAll()
+                                .requestMatchers("/evidences").permitAll()
+                                .requestMatchers("/evidences/{id}").permitAll()
+                                .requestMatchers("/evidences/create").permitAll()
                                 .requestMatchers("/createEvidence").permitAll()
                                 .requestMatchers("/evidenceEdit").permitAll()
+                                .requestMatchers("/evidences/{id}/edit").permitAll()
                                 .requestMatchers("/redirect:users").permitAll()
                                 .requestMatchers("/redirect:evidences").permitAll()
                                 .requestMatchers("/evidences/**").permitAll()
                                 .requestMatchers("/evidence/download/all").permitAll()
                                 .requestMatchers("/evidence/download/{id}").permitAll()
+                              //  .requestMatchers("/me").permitAll()
 
 
 
@@ -63,7 +65,9 @@ public class SpringSecurity {
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .permitAll()
-                );
+                )
+
+        ;
         return http.build();
     }
 

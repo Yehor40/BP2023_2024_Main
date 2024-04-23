@@ -1,10 +1,10 @@
 package com.example.bp2023_2024_Main.service.impl;
 
 import com.example.bp2023_2024_Main.entity.Evidence;
-import com.example.bp2023_2024_Main.entity.User;
 import com.example.bp2023_2024_Main.repository.EvidenceRepository;
 import com.example.bp2023_2024_Main.service.EvidenceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +12,18 @@ import java.util.Optional;
 @Service
 public class EvidenceServiceImpl implements EvidenceService {
 
+@Autowired
     private final EvidenceRepository evidenceRepository;
 
     public EvidenceServiceImpl(EvidenceRepository evidenceRepository) {
         this.evidenceRepository = evidenceRepository;
     }
+
+//    @Override
+//    public List<Evidence> getAllEvidencesByUserId(Long id) {
+//
+//        return evidenceRepository.findByUserId(evidence.getUser().getId());
+//    }
 
     @Override
     public List<Evidence> getAllEvidence() {
@@ -34,7 +41,9 @@ public class EvidenceServiceImpl implements EvidenceService {
         return evidenceRepository.save(evidence);
 
     }
-
+//    public List<Evidence> getMyEvidences(Long userId) {
+//        return evidenceRepository.findByUserId(userId);
+//    }
     @Override
     public void deleteEvidence(Long id) {
         evidenceRepository.deleteById(id);
@@ -55,7 +64,7 @@ public class EvidenceServiceImpl implements EvidenceService {
         existingEvidence.setTaskName(updatedEvidence.getTaskName());
         existingEvidence.setTimeSpent(updatedEvidence.getTimeSpent());
         existingEvidence.setTotal(updatedEvidence.getTotal());
-        existingEvidence.setUsers(updatedEvidence.getUsers());
+        existingEvidence.setUser(updatedEvidence.getUser());
 
         return evidenceRepository.save(existingEvidence);
     }
