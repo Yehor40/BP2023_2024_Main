@@ -31,9 +31,8 @@ public class Evidence {
     private String state;
     private String month;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-
 }
 

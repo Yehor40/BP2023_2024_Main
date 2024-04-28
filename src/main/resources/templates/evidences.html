@@ -54,6 +54,8 @@
             <td th:text="${evidence.total}"></td>
             <td th:text="${evidence.state}"></td>
             <td th:text="${evidence.month}"></td>
+
+
             <td class="text-center"><a class="btn btn-primary" th:href="'/evidences/'+${evidence.id}">More</a></td>
             <td class="text-center">
                 <a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this record?');" th:href="'/evidences/'+${evidence.id}+'/delete'">Delete</a>

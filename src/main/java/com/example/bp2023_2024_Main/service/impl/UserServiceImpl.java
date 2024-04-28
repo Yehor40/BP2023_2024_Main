@@ -6,6 +6,10 @@ import com.example.bp2023_2024_Main.entity.User;
 import com.example.bp2023_2024_Main.repository.RoleRepository;
 import com.example.bp2023_2024_Main.repository.UserRepository;
 import com.example.bp2023_2024_Main.service.UserService;
+
+import com.sun.security.auth.UserPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +46,16 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
     }
+
+    public Long getUserIdByUsername(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            return user.getId();
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+    }
+
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);

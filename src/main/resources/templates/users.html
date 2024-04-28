@@ -41,6 +41,7 @@
                 <td th:text="${user.firstName}"></td>
                 <td th:text="${user.lastName}"></td>
                 <td th:text="${user.email}"></td>
+
                 <td class="text-center"><a class="btn btn-primary" th:href="'/users/'+${user.id}">More</a></td>
                 <td class="text-center">
                     <a class="btn btn-danger" th:href="'/users/'+${user.id}+'/delete'"

@@ -2,9 +2,9 @@ package com.example.bp2023_2024_Main.service.impl;
 
 import com.example.bp2023_2024_Main.entity.Evidence;
 import com.example.bp2023_2024_Main.repository.EvidenceRepository;
+import com.example.bp2023_2024_Main.repository.UserRepository;
 import com.example.bp2023_2024_Main.service.EvidenceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +14,16 @@ public class EvidenceServiceImpl implements EvidenceService {
 
 @Autowired
     private final EvidenceRepository evidenceRepository;
+@Autowired
+private final UserRepository userRepository;
 
-    public EvidenceServiceImpl(EvidenceRepository evidenceRepository) {
+    public EvidenceServiceImpl(EvidenceRepository evidenceRepository, UserRepository userRepository) {
         this.evidenceRepository = evidenceRepository;
+        this.userRepository = userRepository;
     }
-
+    public List<Evidence> getEvidenceByUserId(Long userId) {
+        return evidenceRepository.findByUserId(userId);
+    }
 //    @Override
 //    public List<Evidence> getAllEvidencesByUserId(Long id) {
 //
@@ -37,7 +42,9 @@ public class EvidenceServiceImpl implements EvidenceService {
     }
 
     @Override
-    public Evidence createEvidence(Evidence evidence) {
+    public Evidence createEvidence(Evidence evidence, Long userId) {
+
+        evidence.setUser(userRepository.getById(userId));
         return evidenceRepository.save(evidence);
 
     }
@@ -50,7 +57,7 @@ public class EvidenceServiceImpl implements EvidenceService {
     }
 
     @Override
-    public Evidence updateEvidence(Long id, Evidence updatedEvidence) {
+    public Evidence updateEvidence(Long id, Evidence updatedEvidence,Long userId) {
         Evidence existingEvidence = new Evidence();
         existingEvidence = evidenceRepository.findById(id).orElseThrow();
         // Update the properties of the existing user
@@ -64,7 +71,7 @@ public class EvidenceServiceImpl implements EvidenceService {
         existingEvidence.setTaskName(updatedEvidence.getTaskName());
         existingEvidence.setTimeSpent(updatedEvidence.getTimeSpent());
         existingEvidence.setTotal(updatedEvidence.getTotal());
-        existingEvidence.setUser(updatedEvidence.getUser());
+        existingEvidence.setUser(userRepository.getById(userId));
 
         return evidenceRepository.save(existingEvidence);
     }
