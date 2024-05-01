@@ -22,9 +22,21 @@
   <h2>Edit User</h2>
 
   <form th:action="@{'/users/'+${user.id}+'/edit'}" th:object="${user}" method="post">
+<!--    <div class="mb-3">-->
+<!--      <label for="firstName" class="form-label">First name:</label>-->
+<!--      <input type="text" id="firstName" name="firstName" class="form-control" th:value="*{firstName}" required>-->
+<!--    </div>-->
     <div class="mb-3">
-      <label for="username" class="form-label">Username:</label>
-      <input type="text" id="username" name="username" class="form-control" th:value="*{name}" required>
+      <label for="name" class="form-label">Name:</label>
+      <input type="text" id="name" name="name" class="form-control" th:value="*{name}" required>
+    </div>
+<!--    <div class="mb-3">-->
+<!--      <label for="lastName" class="form-label">Last name:</label>-->
+<!--      <input type="text" id="lastName" name="lastName" class="form-control" th:value="*{lastName}" required>-->
+<!--    </div>-->
+    <div class="mb-3">
+      <label for="email" class="form-label">Email:</label>
+      <input type="text" id="email" name="email" class="form-control" th:value="*{email}" required>
     </div>
 
     <div class="mb-3">
@@ -33,11 +45,6 @@
     </div>
 
     <div class="mb-3">
-      <label class="form-label">User's role:</label>
-      <select th:field="*{roles}">
-        <option th:value="1" th:text="User"></option>
-        <option th:value="3" th:text="Admin"></option>
-      </select><br>
     </div>
 
     <button type="submit" class="btn btn-primary">Update User</button>

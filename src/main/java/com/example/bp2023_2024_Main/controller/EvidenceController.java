@@ -29,14 +29,9 @@ public class EvidenceController {
         Long currentUserId = userService.getUserIdByUsername(currentUsername);
         List<Evidence> evidences = evidenceService.getEvidenceByUserId(currentUserId);
         model.addAttribute("evidences", evidences);
-        return "evidences"; // Assuming you have a view named evidence-list.jsp (or evidence-list.html for Thymeleaf)
+        return "evidences";
     }
-//    @GetMapping("/evidences")
-//    public String showAllEvidences(Model model){
-//        List<Evidence>evidences = evidenceService.getAllEvidence();
-//        model.addAttribute("evidences",evidences);
-//        return"evidences";
-//    }
+
 @PostMapping("/createEvidence")
 public String createEvidence(@ModelAttribute("newEvidence")Evidence evidence,Principal principal){
     String currentUsername = principal.getName();
@@ -81,17 +76,3 @@ public String createEvidence(@ModelAttribute("newEvidence")Evidence evidence,Pri
         return "redirect:/evidences";
     }
 }
-//@GetMapping("/me")
-//    public String getMyEvidences(Model model) {
-//
-//        Long userId = 1L; // Assuming "loggedUserId" holds user ID in session
-//
-//        if (userId != null) {
-//            List<Evidence> evidences = evidenceService.getMyEvidences(userId);
-//            model.addAttribute("evidences", evidences);
-//            return "evidences"; // Name of your view template
-//        } else {
-//            // Handle unauthorized access (e.g., redirect to login page)
-//            return "redirect:/login"; // Redirect to login page if not logged in
-//        }
-//    }

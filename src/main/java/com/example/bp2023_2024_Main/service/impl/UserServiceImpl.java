@@ -62,34 +62,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findAllUsers() {
-        try {
+    public List<User> findAllUsers() {
             List<User> users = userRepository.findAll();
-            return users.stream()
-                    .map(user -> convertEntityToDto(user))
-                    .collect(Collectors.toList());
-        } catch (IndexOutOfBoundsException e) {
-            // Handle the exception appropriately (e.g., log the error, return an empty list)
-            System.err.println("Error converting user: " + e.getMessage());
-            return Collections.emptyList(); // Or handle in another way
-        }
+            return users;
     }
     @Override
     public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+        Optional<User> optionalUser = userRepository.findById(id);
+           return optionalUser;
     }
     @Override
-    public User createUser(User user, List<String> roleNames) {
-        List<Role> roles = new LinkedList<>();
-        for (String roleName : roleNames) {
-            Role role = roleRepository.findByName(roleName);
-            if (role == null) {
-                throw new IllegalArgumentException("Role not found: " + roleName);
-            }
-            roles.add(role);
+    public void createUser(UserDto userDto) {
+        User user = new User();
+        user.setName(userDto.getFirstName() + " " + userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+
+        //encrypt the password once we integrate spring security
+        //user.setPassword(userDto.getPassword());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        Role role = roleRepository.findByName("ROLE_ADMIN");
+        if(role == null){
+            role = checkRoleExist();
         }
-        user.setRoles(roles);
-        return userRepository.save(user);
+        user.setRoles(Arrays.asList(role));
+        userRepository.save(user);
     }
     @Override
     public void deleteUser(Long id) {
@@ -101,8 +97,8 @@ public class UserServiceImpl implements UserService {
         existingUser = userRepository.findById(id).orElseThrow();
         // Update the properties of the existing user
         existingUser.setName(updatedUser.getName());
-        existingUser.setPassword(updatedUser.getPassword());
-        existingUser.setRoles(updatedUser.getRoles());
+        existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+        existingUser.setEmail(updatedUser.getEmail());
         return userRepository.save(existingUser);
     }
     private UserDto convertEntityToDto(User user) {

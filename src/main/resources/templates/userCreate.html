@@ -21,20 +21,19 @@
 
 <h2>Create User</h2>
 <form th:action="@{/create}" th:object="${newUser}" method="post">
-    <label >Name:</label>
-    <input type="text" id="name" name="username" th:field="*{name}" required class="form-control">
+    <label >First name:</label>
+    <input type="text" id="firstname" name="firstname" th:field="*{firstName}" required class="form-control">
+    <label>Second name:</label>
+    <input type="text" id="lastname" name="lastname" th:field="*{lastName}" required class="form-control">
     <label>Email:</label>
-    <input type="text" id="secondname" name="username" th:field="*{email}" required class="form-control">
+    <input type="text" id="email" name="email" th:field="*{email}" required class="form-control">
 
 
     <label >Password:</label>
     <input type="text" id="password" name="password" th:field="*{password}" required class="form-control">
     <br>  <label >Role:</label>
 
-    <select th:field="*{roles}">
-        <option th:value="1" th:text="User"></option>
-        <option th:value="3" th:text="Admin"></option>
-    </select>
+
     <br>
     <br>
     <button type="submit"  class="btn btn-success">Create User</button>

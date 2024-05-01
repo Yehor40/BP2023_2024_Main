@@ -24,11 +24,7 @@ private final UserRepository userRepository;
     public List<Evidence> getEvidenceByUserId(Long userId) {
         return evidenceRepository.findByUserId(userId);
     }
-//    @Override
-//    public List<Evidence> getAllEvidencesByUserId(Long id) {
-//
-//        return evidenceRepository.findByUserId(evidence.getUser().getId());
-//    }
+
 
     @Override
     public List<Evidence> getAllEvidence() {
@@ -48,9 +44,7 @@ private final UserRepository userRepository;
         return evidenceRepository.save(evidence);
 
     }
-//    public List<Evidence> getMyEvidences(Long userId) {
-//        return evidenceRepository.findByUserId(userId);
-//    }
+
     @Override
     public void deleteEvidence(Long id) {
         evidenceRepository.deleteById(id);

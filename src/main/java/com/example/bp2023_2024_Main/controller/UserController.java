@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -23,24 +24,24 @@ public class UserController {
 
     @GetMapping("/users")
     public String listRegisteredUsers(Model model) {
-        List<UserDto> users = userService.findAllUsers();
+        List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "users";
     }
     @GetMapping("/users/{id}")
-    public String getUserById(@PathVariable Long id, Model model) throws ChangeSetPersister.NotFoundException {
-        User user = userService.getUserById(id).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+    public String getUserById(@PathVariable Long id, Model model){
+        Optional<User> user = userService.getUserById(id);
         model.addAttribute("user", user);
         return "userMore";
     }
     @GetMapping("/users/create")
     public String createUserForm(Model model) {
-        model.addAttribute("newUser", new User());
+        model.addAttribute("newUser", new UserDto());
         return "userCreate";
     }
     @PostMapping("/create")
-    public String createUser( @ModelAttribute("newUser")User user, @RequestParam List<String> roleNames) {
-        userService.createUser(user,roleNames);
+    public String createUser( @ModelAttribute("newUser")UserDto user) {
+        userService.createUser(user);
         return "redirect:/users";
     }
     @GetMapping("/users/{id}/delete")
@@ -50,8 +51,8 @@ public class UserController {
     }
     @GetMapping("/users/{id}/edit")
     public String editUserForm(@PathVariable Long id, Model model) throws ChangeSetPersister.NotFoundException {
-        User user = userService.getUserById(id).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
-        model.addAttribute("user", user);
+        User userDto = userService.getUserById(id).orElseThrow();
+        model.addAttribute("user", userDto);
         return "userEdit";
     }
     @PostMapping("/users/{id}/edit")

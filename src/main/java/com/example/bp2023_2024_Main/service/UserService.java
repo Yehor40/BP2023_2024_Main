@@ -12,9 +12,9 @@ public interface UserService {
     Long getUserIdByUsername(String username);
     User findByEmail(String email);
 
-    List<UserDto> findAllUsers();
+    List<User> findAllUsers();
     Optional<User> getUserById(Long id);
-    User createUser(User user, List<String> roleNames);
+    void createUser(UserDto userDto);
     void deleteUser(Long id);
     User updateUser(Long id,User updatedUser);
 }

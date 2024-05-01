@@ -28,8 +28,8 @@
     <table class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>ID</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>User details</th>
                 <th>Actions</th>
@@ -37,12 +37,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="user: ${users}">
-                <td th:text="${user.firstName}"></td>
-                <td th:text="${user.lastName}"></td>
+            <tr th:each="user:${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
                 <td th:text="${user.email}"></td>
 
-                <td class="text-center"><a class="btn btn-primary" th:href="'/users/'+${user.id}">More</a></td>
+
+                <td class="text-center"> <a class="btn btn-primary"  th:href="'/users/'+${user.id}">More</a></td>
                 <td class="text-center">
                     <a class="btn btn-danger" th:href="'/users/'+${user.id}+'/delete'"
                        onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>

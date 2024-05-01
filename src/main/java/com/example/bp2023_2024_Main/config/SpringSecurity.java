@@ -33,7 +33,6 @@ public class SpringSecurity {
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
                                 .requestMatchers("/users/{id}").permitAll()
-                                .requestMatchers("/users/{id}").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/create").permitAll()
                                 .requestMatchers("/users/create").permitAll()
                                 .requestMatchers("/users/{id}/edit").permitAll()
