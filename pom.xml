@@ -54,7 +54,10 @@
 			<artifactId>spring-security-web</artifactId>
 			<version>6.0.0</version> </dependency>
 
-
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
